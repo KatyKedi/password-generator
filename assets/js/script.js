@@ -1,15 +1,45 @@
 // Assignment code here
-function generatePassword() {
-  chooseLength();
-  chooseCharacters();
+var alphabet = "abcdefghijklmnopqrstuvwxyz";
+var alphabetLower = alphabet.split("");
 
+var alphabetUpper = [];
+for (i = 0; i < alphabetLower.length; i++) {
+  alphabetUpper += alphabetLower[i].toUpperCase();
+}
+alphabetUpper.split("");
+
+var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+var special = " !"+ '"' + "#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+special.split("");
+
+var characters = {};
+
+function generatePassword() {
+  var length = chooseLength();
+  chooseCharacters();
+  var options = [];
+  for (i = 0; i < length; i++) {
+    if (characters.lowercase === true) {
+      options += alphabetLower;
+    }
+    if (characters.uppercase === true) {
+      options += alphabetUpper;
+    }
+    if (characters.numeric === true) {
+      options += numbers;
+    }
+    if (characters.special === true) {
+      options += special;
+    }
+  }
 };
 
 function chooseLength() {
   var lengthPrompt = window.prompt("Choose a length between 8 and 128 characters: ");
 
   if (lengthPrompt >= 8 || lengthPrompt <=128) {
-    return;
+    return lengthPrompt;
   }
   else {
     window.alert("You must enter a valid number between 8 and 128.");
@@ -27,9 +57,13 @@ function chooseCharacters() {
     window.alert("You must include at least one of the following: lowercase, uppercase, numeric, or special characters.");
     return chooseCharacters();
   }
+  else {
+    characters.lowercase = lowercasePrompt;
+    characters.uppercase = uppercasePrompt;
+    characters.numeric = numericPrompt;
+    characters.special = specialPrompt;
+  }
 };
-
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
