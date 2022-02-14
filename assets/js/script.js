@@ -19,20 +19,24 @@ function generatePassword() {
   var length = chooseLength();
   chooseCharacters();
   var options = [];
-  for (i = 0; i < length; i++) {
-    if (characters.lowercase === true) {
-      options += alphabetLower;
-    }
-    if (characters.uppercase === true) {
-      options += alphabetUpper;
-    }
-    if (characters.numeric === true) {
-      options += numbers;
-    }
-    if (characters.special === true) {
-      options += special;
-    }
+  var password = "";
+  if (characters.lowercase === true) {
+    options += alphabetLower;
   }
+  if (characters.uppercase === true) {
+    options += alphabetUpper;
+  }
+  if (characters.numeric === true) {
+    options += numbers;
+  }
+  if (characters.special === true) {
+    options += special;
+  }
+  for (i = 0; i < length; i++) {
+    var random = Math.floor(Math.random() * options.length);
+    password += options[random];
+  }
+  return password;
 };
 
 function chooseLength() {
